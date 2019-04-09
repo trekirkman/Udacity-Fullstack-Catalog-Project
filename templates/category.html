@@ -4,7 +4,7 @@
 
 	<h1>{{category.name}} Items</h1>
 
-	<a href= {{url_for('newItem', category_id = category.id)}}>Create New Item</a>
+	<a href= {{url_for('newItem', category_id = category.id)}} class="inverted-button">Create New Item</a>
 
 	{% if items %}
 
@@ -15,12 +15,11 @@
 			<a href= {{url_for('showItem', item_id = item.id)}}>
 
 				<h2>{{item.name}}</h2>
-				<p>{{item.category.name}}</p>
+				<p class="label">{{item.category.name}}</p>
 
 			</a>
 
 		</div>
-		
 
 		{% endfor %}
 	

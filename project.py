@@ -13,13 +13,15 @@ import httplib2
 import json
 import requests
 
+# Instantiate App
+app = Flask(__name__)
 
+# Read Google client_secrets.json and assign client_id for later use.
 CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Catalog Application"
 
-
-app = Flask(__name__)
+# Connect to database and initiate session.
 engine = create_engine('sqlite:///catalog.db',
                        connect_args={'check_same_thread': False})
 Base.metadata.bind = engine
@@ -29,6 +31,8 @@ session = DBSession()
 
 @app.route('/login')
 def showLogin():
+    """ Create anti-forgery state token and present login interface """
+
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in xrange(32))
     login_session['state'] = state
@@ -37,6 +41,8 @@ def showLogin():
 
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
+    """ Handles a user authorization request from Google Sign-in API. """
+
     # Validate state token
     if request.args.get('state') != login_session['state']:
         arg_state = request.args.get('state')
@@ -139,9 +145,8 @@ def gconnect():
     return output
 
 
-# Create new user.
 def create_user(login_session):
-    """Crate a new user.
+    """Create a new user.
 
     Argument:
     login_session (dict): The login session.
@@ -186,7 +191,6 @@ def get_user_id(email):
         return None
 
 
-# Disconnect Google Account.
 @app.route('/logout')
 def gdisconnect():
     """Disconnect the Google account of the current logged-in user."""
@@ -239,7 +243,13 @@ def showCatalog():
 # This page will show all catalog items for a specific category
 @app.route('/catalog/<int:category_id>/')
 def showCategory(category_id):
-    """Presents view for specific category, referenced by category_id."""
+    """
+    Presents view for specific category, referenced by category_id.
+
+    Argument:
+        category_id (int) : The ID of the category to display
+    """
+
     return render_template('category.html',
                            category=getCategory(category_id),
                            items=getItems(category_id),
@@ -249,7 +259,13 @@ def showCategory(category_id):
 # This page will show a specific catalog item
 @app.route('/catalog/item/<int:item_id>/')
 def showItem(item_id):
-    """Presents view for specific item, referenced by item_id"""
+    """
+    Presents view for displaying a specific catalog item, referenced by item_id.
+
+    Argument:
+        item_id (int) : The item ID of the item to display,
+    """
+
     if item_exists(item_id):
         item = getItem(item_id)
         print(item.category_id)
@@ -266,7 +282,13 @@ def showItem(item_id):
 # This page will show a form to create a new item in a category
 @app.route('/catalog/<int:category_id>/new/', methods=['GET', 'POST'])
 def newItem(category_id):
-    """Handles GET & POST requests for adding an item to the database."""
+    """
+    Provides a form interface for creating a new database item, and handles form submissions.
+    
+    Argument:
+        category_id (int) : The category ID of the new item
+    """
+
     if 'user_id' not in login_session:
         flash("Please log in to continue")
         return redirect(url_for('showLogin'))
@@ -289,7 +311,13 @@ def newItem(category_id):
 @app.route('/catalog/<int:category_id>/<int:item_id>/edit/',
            methods=['GET', 'POST'])
 def editItem(category_id, item_id):
-    """Handles GET & POST requests for editing an item."""
+    """
+    Provides a form interface for editing an item, and handles form submissions.
+
+    Arguments:
+        item_id (int) : The item ID of the item to edit,
+        category_id (int) : The category ID of the item to edit
+    """
 
     item = getItem(item_id)
 
@@ -312,7 +340,7 @@ def editItem(category_id, item_id):
         if request.form['category']:
             item.category_id = request.form['category']
 
-        # updateDB(item) #FIX THIS
+        updateDB(item) #FIX THIS
         # Update to get correct category id on redirect
         return redirect(url_for('showItem', item_id=item_id))
 
@@ -326,7 +354,14 @@ def editItem(category_id, item_id):
 @app.route('/catalog/<int:category_id>/<int:item_id>/delete/',
            methods=['GET', 'POST'])
 def deleteItem(category_id, item_id):
-    """Handles GET & POST requests for deleting an item."""
+    """
+    Provides a form interface for deleting an item, and handles form submissions.
+
+    Arguments:
+        item_id (int) : The item ID of the item to delete,
+        category_id (int) : The category ID of the item to delete
+    
+    """
 
     if 'user_id' not in login_session:
         flash("Please log in to continue")
@@ -339,7 +374,7 @@ def deleteItem(category_id, item_id):
         return redirect(url_for('showItem', item_id=item_id))
 
     elif request.method == 'POST':
-        updateDB(item)
+        deleteItem(item)
         return redirect(url_for('showCategory', category_id=category_id))
     else:
         return render_template('deleteitem.html',
@@ -453,6 +488,16 @@ def updateDB(item):
     session.add(item)
     session.commit()
 
+
+def deleteItem(item):
+    """Delete Database Object and commit changes
+
+    Argument:
+        item (database_setup.Object) : A database item to add and commit
+    """
+
+    session.delete(item)
+    session.commit()
 
 # Check if the category exists in the database.
 def category_exists(category_id):
