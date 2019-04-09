@@ -2,7 +2,7 @@
 An Udacity Full Stack Web Developer Nanodegree project developed by Tremaine Kirkman.
 
 ## About
-This web application provides an interface to browse, update, and delete items from a catalog. Items are organized by category, and users have the ability to add, edit, and delete their own catalog items after authentication. Authentication is provided via the Google Sign-in API.
+This web application provides an interface to browse, update, and delete items from a catalog organized by category. Authentication is provided via the Google Sign-in API, and user CRUD access is limited to their own catalog items.
 
 ### Features
 - User Registration via Google Sign-in API.
