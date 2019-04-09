@@ -1,0 +1,63 @@
+<html>
+
+<head>
+	<title>Catalog App</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
+
+<body>
+	<div class="topbar">
+		<h1><a class="logo" href="/home">Catalog App</a></h1>
+
+		{% if 'username' not in session %}
+		<a href="{{url_for('showLogin')}}" class="color-button" id="signin">
+			Login
+		</a>
+		{% else: %}
+		<a href="{{url_for('gdisconnect')}}" class="inverted-button" id="signout>">
+			Logout
+		</a>
+		{% endif %}
+	</div>
+
+	{% with messages = get_flashed_messages() %}
+
+	{% if messages %}
+
+		{% for message in messages %}
+
+			<div class="flash">{{message}}</div>
+
+		{% endfor %}
+
+	{% endif %}
+
+	{% endwith %}
+
+	<div class="container">
+		{% if navCategories %}
+
+		<div class="sidenav">
+			<h1>Categories</h1>
+			{% for category in navCategories %}
+			<a href={{url_for('showCategory', category_id = category.id)}}>
+				<h2>{{category.name}}</h2>
+			</a>
+
+			{% endfor %}
+
+		</div>
+
+		{% endif %}
+		<div class="main">
+			{% block main %}
+
+			{% endblock %}
+		</div>
+	</div>
+
+
+</body>
+
+</html>

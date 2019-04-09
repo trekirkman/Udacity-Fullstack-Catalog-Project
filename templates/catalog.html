@@ -1,0 +1,22 @@
+{% extends "main.html" %}
+
+{% block main %}
+
+	<h1>Latest Items</h1>
+
+	{% for item in items %}
+
+	<div>
+
+		<a href={{url_for('showItem', item_id = item.id)}}>
+			<h2>{{item.name}}</h2>
+			<p class="label">{{item.category.name}}</p>
+		</a>
+
+	</div>
+
+	{% endfor %}
+
+{% endblock %}
+
+

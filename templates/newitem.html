@@ -1,0 +1,27 @@
+{% extends "main.html" %}
+
+{% block main %}
+
+	<h1> Add Item </h1>
+
+	<form class="form" action="{{url_for('newItem', category_id=category.id)}}" method='POST'>
+		<div class="form-item">
+			<h2>Name:</h2>
+
+			<input class='input' type='text' size='30' name='name' placeholder="Name">
+		</div>
+
+		<div class="form-item">
+			<h2>Description:</h2>
+
+			<input class='input' type='text' size='30' name='description' placeholder="Description">
+		</div>
+
+		<div class="buttons">
+			<input class="color-button" type='submit' value='Update' />
+			<a class="inverted-button" href="{{url_for('showCatalog', category_id=category_id )}}">Cancel</a>
+		</div>
+
+	</form>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+
+
+
+{% extends "main.html" %}
+
+{% block main %}
+
+	<h1> Delete Item </h1>
+
+	<form action="{{url_for('deleteItem', category_id=category.id, item_id=item.id)}}" method='POST'>
+
+		<p>Are you sure you want to delete {{ item.name }}?</p>
+
+		<div class="buttons">
+			<input class="color-button" type='submit' value='Delete' />
+			<a class="inverted-button" href="{{url_for('showCatalog', category_id=category_id )}}">Cancel</a>
+		</div>
+
+	</form>
+
+{% endblock %}

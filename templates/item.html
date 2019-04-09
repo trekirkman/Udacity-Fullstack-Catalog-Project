@@ -1,0 +1,16 @@
+{% extends "main.html" %}
+
+{% block main %}
+
+	<h1>{{item.name}}</h1>
+	<p>{{item.description}}</p>
+
+	{% if user_id == item.user_id %}
+	<p>
+		<a class="text-button" id="edit" href= {{url_for('editItem', category_id = category.id, item_id = item.id)}}>Edit</a>
+		<span class="vertical-line"></span>
+		<a class="text-button" id="delete" href= {{url_for('deleteItem', category_id = category.id, item_id = item.id)}}>Delete</a>
+	</p>
+	{% endif %}
+
+{% endblock %}

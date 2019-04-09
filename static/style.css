@@ -1,0 +1,243 @@
+body {
+	font-family: BlinkMacSystemFont,
+	-apple-system,
+	"Segoe UI",
+	Roboto,
+	Oxygen,
+	Ubuntu,
+	Cantarell,
+	"Fira Sans",
+	"Droid Sans",
+	"Helvetica Neue",
+	Helvetica,
+	Arial,
+	sans-serif;
+
+	background-color: #FBFBFD;
+}
+
+h1,h2, h3 {
+	font-family: BlinkMacSystemFont,
+	-apple-system,
+	"Segoe UI",
+	Roboto,
+	Oxygen,
+	Ubuntu,
+	Cantarell,
+	"Fira Sans",
+	"Droid Sans",
+	"Helvetica Neue",
+	Helvetica,
+	Arial,
+	sans-serif;
+
+}
+
+a {
+	text-decoration: none;
+}
+
+.logo {
+	font-family: BlinkMacSystemFont,
+	-apple-system,
+	"Segoe UI",
+	Roboto,
+	Oxygen,
+	Ubuntu,
+	Cantarell,
+	"Fira Sans",
+	"Droid Sans",
+	"Helvetica Neue",
+	Helvetica,
+	Arial,
+	sans-serif;
+	color: #303030;
+	text-decoration: none;
+
+}
+
+#createButton {
+	background-color: #8E52C6;
+	color: white;
+	height: 20px;
+	width: 130px;
+}
+
+.color-button {
+	background-color: #8E52C6;
+	color: white;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 4px;
+	padding: calc(.375em - 1px) calc(.825em - 1px);
+	font-size: 1.3em;
+	border: none;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+}
+
+.form-item {
+	display: flex;
+	flex-direction: column;
+	width: 60%;
+	margin-bottom: 1vw;
+}
+
+.buttons {
+	display: flex;
+	flex-direction: row;
+	width: 25%;
+	justify-content: space-between;
+	margin-top: 1vw;
+}
+
+a.inverted-button {
+	background-color: #FFFFFF;
+	color: #8E52C6 !important;
+	border: 1.5px solid #8E52C6;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 4px;
+	padding: calc(.375em - 1px) calc(.825em - 1px);
+	font-size: 1.3em;
+}
+
+.label {
+	color: #B5B5B5;
+	margin-top: -0.75em;
+	margin-bottom: 2.5em;
+}
+
+.input {
+	background-color: #FFFFFF;
+	border-color: #dbdbdb;
+	color: #363636;
+	border-radius: 4px;
+	box-shadow: inset 0 1px 2px rgba(10, 10, 10, .1);
+	border: 1px solid transparent;
+	padding: calc(1.2em - 1px) calc(1em - 1px);
+	font-size: 1rem;
+	line-height: 1.5;
+
+}
+
+.dropdown {
+	background-color: #FFFFFF;
+	border-color: #dbdbdb;
+	color: #363636;
+	border-radius: 4px;
+	box-shadow: inset 0 1px 2px rgba(10, 10, 10, .1);
+	border: 1px solid transparent;
+	padding: calc(1.2em - 1px) calc(1em - 1px);
+	font-size: 1rem;
+	line-height: 1.5;
+}
+
+.dropdown-option {
+	font-size: rem;
+}
+
+a.text-button {
+	color: #B5B5B5 !important;
+	/* margin-right: 1vw; */
+}
+
+#edit {
+	padding-right: 0.5vw;
+}
+
+#delete {
+	padding-left: 0.5vw;
+}
+
+.topbar {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1vw 6vw;
+	background-color: #FFFFFF;
+	overflow: hidden;
+	color: #303030;
+	box-shadow: 0 2px 4px 0 #f5f5f5;
+}
+
+.topbar h1 {
+	font-size: 35px;
+	vertical-align: middle;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	width: 80%;
+	flex-wrap: nowrap;
+	margin: auto;
+	margin-bottom: 4em;
+}
+
+.sidenav {
+	width: 25%;
+	display: flex;
+	flex-direction: column;
+	z-index: 1;
+	margin-top: 5vw;
+	overflow-x: hidden;
+	padding-top: 0px;
+}
+
+.sidenav h1 {
+	color: #8E52C6;
+}
+
+.sidenav a {
+	text-decoration: none;
+	color: #303030;
+}
+
+.sidenav a:hover {
+	color: #E9B000;
+}
+
+.sidenav h2 {
+	font-size: 25px;
+}
+
+.main {
+	width: 75%;
+	color: #4A4A4A;
+	margin-top: 5vw;
+}
+
+.main h1 {
+	color: #8E52C6;
+}
+
+.main h2 {
+	color: #303030;
+}
+
+.main h3 {
+	color: #B5B5B5;
+}
+
+.main a {
+	color: #303030;
+	font-weight: 500;
+}
+
+
+.flash {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	background-color: #ff3860;
+	color: #FFFFFF;
+	text-decoration: none;
+	padding: 1em 0em;
+}
