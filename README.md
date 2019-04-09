@@ -1,4 +1,4 @@
-# Udacity Catalog Project
+# Catalog Web App
 An Udacity Full Stack Web Developer Nanodegree project developed by Tremaine Kirkman.
 
 ## About
