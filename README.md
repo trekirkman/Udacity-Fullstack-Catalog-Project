@@ -49,8 +49,9 @@ Next, populate the database with starter values:
 Run:`python3 app.py`, and then open `http://localhost:5000/` in a Web browser, and enjoy!
 
 ## Troubleshooting
-In case the app doesn't run, make sure to confirm the following points:
+In case the app doesn't run, double check a few things:
 - You have run `python catalog_database.py` before running the application. This is an essential step.
+- You have at least python 2.7 installed.
 - The latest version of Flask is installed.
 
 ## API
