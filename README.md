@@ -53,6 +53,25 @@ In case the app doesn't run, make sure to confirm the following points:
 - You have run `python catalog_database.py` before running the application. This is an essential step.
 - The latest version of Flask is installed.
 
+## API
+This project implements a basic REST API that exposes several JSON endpoints to return category & item data from the database. Below is a list of all API endpoints included in the project.
+
+### 1. All Items
+This endpoint returns a list of all the item objects in the catalog database. Found at: 
+
+    /api/catalog.json
+
+### 2. Specific Item
+Returns a specific item object from the database. Requires the correct catalog_id & item_id parameters
+
+    /api/categories/<int:category_id>/item/<int:item_id>.json
+    
+### 3. All Categories
+Returns a list of all category objects in the database
+
+    /api/categories.json
+
+
 ---
 
 ## License
