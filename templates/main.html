@@ -39,7 +39,11 @@
 		{% if navCategories %}
 
 		<div class="sidenav">
-			<h1>Categories</h1>
+			
+			<a href="/home">
+				<h1>Categories</h1>
+			</a>
+			
 			{% for category in navCategories %}
 			<a href={{url_for('showCategory', category_id = category.id)}}>
 				<h2>{{category.name}}</h2>

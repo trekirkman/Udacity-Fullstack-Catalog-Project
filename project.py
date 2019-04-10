@@ -203,6 +203,12 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
 
+    access_token = login_session.get('access_token')
+
+    requests.post('https://accounts.google.com/o/oauth2/revoke',
+                  params={'token': access_token},
+                  headers={'content-type': 'application/x-www-form-urlencoded'})
+    
     url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % access_token
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
@@ -217,9 +223,8 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
     else:
-        print(result['status'])
         response = make_response(
-            json.dumps('Failed to revoke token for given user.'), 400)
+            json.dumps('Failed to access token.'), 400)
         response.headers['Content-Type'] = 'application/json'
         return response
 
@@ -268,7 +273,6 @@ def showItem(item_id):
 
     if item_exists(item_id):
         item = getItem(item_id)
-        print(item.category_id)
         category_id = getCategoryID(item_id)
         return render_template('item.html',
                                category=getCategory(category_id),
@@ -293,7 +297,6 @@ def newItem(category_id):
         flash("Please log in to continue")
         return redirect(url_for('showLogin'))
     elif request.method == 'POST':
-        print("test")
         newItem = Item(name=request.form['name'],
                        description=request.form['description'],
                        category_id=category_id,
@@ -425,33 +428,24 @@ def categories_json():
 def getCategory(category_id):
     """View an item by its ID."""
 
-    print("get Category: %s" % category_id)
     return session.query(Category).filter_by(id=category_id).first()
 
 
 def getItem(item_id):
     """View an item by its ID."""
 
-    item = session.query(Item).filter_by(id=item_id).one()
-    print('get item: %s' % item)
-    return item
+    return session.query(Item).filter_by(id=item_id).one()
 
 
 def getItems(category_id):
     """View an item by its ID."""
 
-    items = session.query(Item).filter_by(category_id=category_id).all()
-    for item in items:
-        print item.name
     return session.query(Item).filter_by(category_id=category_id).all()
 
 
 def getRecentItems():
     """Get list of most recent items from database."""
 
-    items = session.query(Item).filter_by(category_id=category_id).all()
-    for item in items:
-        print item.name
     return session.query(Item).filter_by(category_id=category_id).all()
 
 
@@ -474,7 +468,6 @@ def getCategoryID(item_id):
 
     item = getItem(item_id)
     category_id = item.category_id
-    print("Get Category ID: %s" % category_id)
     return category_id
 
 
