@@ -274,10 +274,17 @@ def showItem(item_id):
     if item_exists(item_id):
         item = getItem(item_id)
         category_id = getCategoryID(item_id)
-        return render_template('item.html',
-                               category=getCategory(category_id),
-                               item=getItem(item_id),
-                               user_id=login_session['user_id'])
+
+        if 'user_id' not in login_session:
+            return render_template('item.html', category=getCategory(category_id), item=getItem(item_id))
+
+        else:
+            return render_template('item.html',
+                          category=getCategory(category_id),
+                          item=getItem(item_id),
+                          user_id=login_session['user_id'])
+
+
     else:
         flash('Something went wrong with your request :(')
         return redirect(url_for('showCatalog'))
