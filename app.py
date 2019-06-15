@@ -207,8 +207,9 @@ def gdisconnect():
 
     requests.post('https://accounts.google.com/o/oauth2/revoke',
                   params={'token': access_token},
-                  headers={'content-type': 'application/x-www-form-urlencoded'})
-    
+                  headers={'content-type':
+                           'application/x-www-form-urlencoded'})
+
     url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % access_token
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
@@ -265,7 +266,7 @@ def showCategory(category_id):
 @app.route('/catalog/item/<int:item_id>/')
 def showItem(item_id):
     """
-    Presents view for displaying a specific catalog item, referenced by item_id.
+    Presents view for displaying a specific catalog item, sorted by item_id.
 
     Argument:
         item_id (int) : The item ID of the item to display,
@@ -276,14 +277,15 @@ def showItem(item_id):
         category_id = getCategoryID(item_id)
 
         if 'user_id' not in login_session:
-            return render_template('item.html', category=getCategory(category_id), item=getItem(item_id))
+            return render_template('item.html',
+                                   category=getCategory(category_id),
+                                   item=getItem(item_id))
 
         else:
             return render_template('item.html',
-                          category=getCategory(category_id),
-                          item=getItem(item_id),
-                          user_id=login_session['user_id'])
-
+                                   category=getCategory(category_id),
+                                   item=getItem(item_id),
+                                   user_id=login_session['user_id'])
 
     else:
         flash('Something went wrong with your request :(')
@@ -294,8 +296,9 @@ def showItem(item_id):
 @app.route('/catalog/<int:category_id>/new/', methods=['GET', 'POST'])
 def newItem(category_id):
     """
-    Provides a form interface for creating a new database item, and handles form submissions.
-    
+    Provides a form interface for creating a new database item,
+    and handles form submissions.
+
     Argument:
         category_id (int) : The category ID of the new item
     """
@@ -322,7 +325,8 @@ def newItem(category_id):
            methods=['GET', 'POST'])
 def editItem(category_id, item_id):
     """
-    Provides a form interface for editing an item, and handles form submissions.
+    Provides a form interface for editing an item, and handles
+    form submissions.
 
     Arguments:
         item_id (int) : The item ID of the item to edit,
@@ -350,8 +354,7 @@ def editItem(category_id, item_id):
         if request.form['category']:
             item.category_id = request.form['category']
 
-        updateDB(item) #FIX THIS
-        # Update to get correct category id on redirect
+        updateDB(item)
         return redirect(url_for('showItem', item_id=item_id))
 
     else:
@@ -365,12 +368,13 @@ def editItem(category_id, item_id):
            methods=['GET', 'POST'])
 def deleteItem(category_id, item_id):
     """
-    Provides a form interface for deleting an item, and handles form submissions.
+    Provides a form interface for deleting an item, and handles
+    form submissions.
 
     Arguments:
         item_id (int) : The item ID of the item to delete,
         category_id (int) : The category ID of the item to delete
-    
+
     """
 
     if 'user_id' not in login_session:
@@ -498,6 +502,7 @@ def deleteItem(item):
 
     session.delete(item)
     session.commit()
+
 
 # Check if the category exists in the database.
 def category_exists(category_id):
